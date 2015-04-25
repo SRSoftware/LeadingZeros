@@ -1,0 +1,7 @@
+; $Id:
+name = Leading zero numbers
+description = Provides formatters for interger numbers with leading zeroes.
+package = CCK
+dependencies[] = content
+core = 6.x
+

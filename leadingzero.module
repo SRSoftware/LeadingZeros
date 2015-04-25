@@ -1,0 +1,77 @@
+<?php
+/**
+ * Implementation of hook_field_formatter_info().
+ *
+ * Here we define an array with the options we will provide in display fields page
+ * The array keys will be used later in hook_theme and theme_
+ */
+
+function leadingzero_field_formatter_info() {
+  $formatters = array(
+    'fourdigits' => array(
+      'label' => t('0123'),
+      'field types' => array('number_integer'),
+      'description' => t('Shows the number with leading zeroes to match a total length of 4 characters.'),
+    ),
+    'fivedigits' => array(
+      'label' => t('01234'),
+      'field types' => array('number_integer'),
+      'description' => t('Shows the number with leading zeroes to match a total length of 5 characters.'),
+    ),
+    'sixdigits' => array(
+      'label' => t('012345'),
+      'field types' => array('number_integer'),
+      'description' => t('Shows the number with leading zeroes to match a total length of 6 characters.'),
+    ),
+  );
+  return $formatters;
+}
+
+/**
+ * Implementation of hook_theme().
+ *
+ * We declare our theme functions according to the array keys in hook_field_formatter_info
+ */
+function leadingzero_theme() {
+  $theme = array(
+    'leadingzero_formatter_fourdigits' => array(
+      'arguments' => array('element' => NULL),
+    ),
+    'leadingzero_formatter_fivedigits' => array(
+      'arguments' => array('element' => NULL),
+    ),
+    'leadingzero_formatter_sixdigits' => array(
+      'arguments' => array('element' => NULL),
+    ),
+  );
+  return $theme;
+}
+
+/**
+ * Theming functions for our formatters
+ *
+ * And here we do our magic. You can use dsm($element) to see what you have to play with (requires devel module).
+ */
+function theme_leadingzero_formatter_fourdigits($element) {
+  $output = '';
+  if (!empty($element['#item']['value'])) {
+    $output = str_pad($element['#item']['value'],4,'0',STR_PAD_LEFT);
+  }
+  return $output;
+}
+function theme_leadingzero_formatter_fivedigits($element) {
+  $output = '';
+  if (!empty($element['#item']['value'])) {
+    $output = str_pad($element['#item']['value'],5,'0',STR_PAD_LEFT);
+  }
+  return $output;
+}
+function theme_leadingzero_formatter_sixdigits($element) {
+  $output = '';
+  if (!empty($element['#item']['value'])) {
+    $output = str_pad($element['#item']['value'],6,'0',STR_PAD_LEFT);
+  }
+  return $output;
+}
+
+
